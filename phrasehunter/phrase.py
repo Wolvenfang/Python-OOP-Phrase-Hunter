@@ -1,8 +1,18 @@
 class Phrase():
     def __init__(self, phrase):
-        self.phrase = phrase
+        lower_phrase = phrase.lower()
+        split_phrase = lower_phrase.split(" ")
+
+        words_array = []
+        for word in split_phrase:
+            letters_array = []
+            for letter in word:
+                letters_array.append(letter)
+            words_array.append(letters_array)
+
+        self.phrase = words_array
         display_pha = []
-        for word in phrase:
+        for word in words_array:
             word_size = len(word)
             current_word = []
             while word_size != 0:
@@ -18,12 +28,18 @@ class Phrase():
             phrase_string = phrase_string + "   " + " ".join(word)
         print(phrase_string)
 
+    def display_answer(self):
+        phrase_string = ""
+        for word in self.phrase:
+            phrase_string = phrase_string + "   " + " ".join(word)
+        print(phrase_string)
+
     def check_letter(self, input_letter):
         for word in self.phrase:
             for letter in word:
                 if letter == input_letter:
-                    return False
-        return True
+                    return True
+        return False
 
     def set_letter(self, input_letter):
         word_position = -1
@@ -41,10 +57,3 @@ class Phrase():
                 if letter == '_':
                     return False
         return True
-
-
-array = (('T', 'h', 'a', 'n', 'o', 's'), ('f', 'i', 'g', 'h', 't', 's'))
-phrase = Phrase(array)
-phrase.display()
-phrase.set_letter('s')
-phrase.display()
