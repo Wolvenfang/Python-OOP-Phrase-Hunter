@@ -57,3 +57,14 @@ class Phrase():
                 if letter == '_':
                     return False
         return True
+
+    def reset(self):
+        display_pha = []
+        for word in self.phrase:
+            word_size = len(word)
+            current_word = []
+            while word_size != 0:
+                current_word.append('_')
+                word_size -= 1
+            display_pha.append(current_word)
+        self.displayed_phrase = display_pha

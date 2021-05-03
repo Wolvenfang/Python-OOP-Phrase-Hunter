@@ -6,10 +6,10 @@ class Game:
     def __init__(self):
         self.missed = 0
         self.phrases = [Phrase("fly you fools"),
-                        Phrase("What goood Bitch"),
-                        Phrase("I hate how much work I have"),
-                        Phrase("Kemuel is a bitch"),
-                        Phrase("I like pugs")]
+                        Phrase("you shall not pass"),
+                        Phrase("a wizard is never late"),
+                        Phrase("for rohan"),
+                        Phrase("i am no man")]
         self.active_phrase = random.choice(self.phrases)
         self.guesses = []
 
@@ -18,12 +18,16 @@ class Game:
         current_phrase = self.get_random_phrase()
         while True:
             current_phrase.display()
-            player_guess = input("Guess a letter: ") # Validation?
+            player_guess = str(input("Guess a letter: ")) # Validation?
             self.get_guess(player_guess.lower())
             if current_phrase.check_letter(player_guess):
                 current_phrase.set_letter(player_guess)
+            elif player_guess.isdigit():
+                print("Numbers are not a valid guess.")
+            elif len(player_guess) > 1:
+                print("Only 1(one) letter at a time per guess.")
             elif not current_phrase.check_letter(player_guess):
-                print("Wrong")
+                print("Oops, missed guess. Try again.")
                 self.missed += 1
                 print("You have missed a total of : " + str(self.missed) + " out of 5")
             current_phrase.display()
@@ -35,11 +39,15 @@ class Game:
                     self.game_over(True)
                 play_again = input("Would you like to play again? ") # validation
                 if play_again.lower() == "yes":
+                    current_phrase.reset()
                     current_phrase = self.get_random_phrase()
                     self.missed = 0
                     self.guesses = []
-                else:
+                elif play_again.lower() == "no":
+                    print("Bye! Thanks for playing!")
                     break
+                else:
+                    print("Not a valid option.") # How to get this to loop back if wrong.
 
     def get_random_phrase(self):
         return random.choice(self.phrases)
