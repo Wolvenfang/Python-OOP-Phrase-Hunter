@@ -1,4 +1,4 @@
-class Phrase():
+class Phrase:
     def __init__(self, phrase):
         lower_phrase = phrase.lower()
         split_phrase = lower_phrase.split(" ")
